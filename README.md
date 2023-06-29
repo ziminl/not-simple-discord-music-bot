@@ -17,11 +17,17 @@ Start the bot:
 ## The bot supports the following commands:
 
 $play <song name> - Plays the specified song.
+
 $pause - Pauses the current playing song.
+
 $resume - Resumes the paused song.
+
 $skip - Skips to the next song.
+
 $clear - Clears the queue.
+
 $reset - Soft resets the bot.
+
 You can use the $help command to get more information about each command.
 
 ## Contributing
@@ -36,4 +42,5 @@ Contributions are welcome! If you find any issues or have suggestions, please op
 idk 
 
 ## License
+
 This project is licensed under the MIT License.

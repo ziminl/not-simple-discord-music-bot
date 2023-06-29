@@ -19,7 +19,7 @@ lavalink = [
     {'host': 'lavalink.lexnet.cc', 'port': 443, 'password': 'lexn3tl@val!nk'},
     {'host': 'eu-lavalink.lexnet.cc', 'port': 443, 'password': 'lexn3tl@val!nk'},
     {'host': 'suki.nathan.to', 'port': 443, 'password': 'adowbongmanacc'},
-    {'host': 'oce-lavalink.lexnet.cc', 'port': 443, 'password': 'lexn3tl@val!nk'},
+    {'host': 'oce-lavalink.lexnet.cc', 'port': 443, 'password': 'lexn3tl@val!nk'}
 ]
 
 intents = nextcord.Intents.all()

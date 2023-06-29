@@ -4,13 +4,12 @@ This is a Discord music bot written in Python using the Nextcord library. code w
 
 ## Installation
 
-> Install the required dependencies:
-
 > pip install -r requirements.txt
 
 Replace DISCORD_TOKEN with your bot token.
 
-> Start the bot:
+
+Start the bot:
 
 > python bot.py
 

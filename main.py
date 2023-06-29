@@ -12,7 +12,7 @@ import random
 
 
 
-DISCORD_TOKEN = 'MTEyMzU0OTkyNDU4MDE1MTMwNw.G-Yasy.owfqpjeyeOEj8kteHXegCBI0LuhcNdTwZyZcf8'
+DISCORD_TOKEN = 'token'
 
 
 

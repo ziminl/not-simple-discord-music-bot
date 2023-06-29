@@ -1,7 +1,6 @@
 
 
 
-
 import nextcord
 from nextcord.ext import commands
 import nextwave
@@ -12,7 +11,7 @@ import random
 
 
 
-DISCORD_TOKEN = 'token'
+token = 'discord token'
 
 
 
@@ -27,11 +26,10 @@ intents = nextcord.Intents.all()
 bot = commands.Bot(command_prefix='$', intents = intents, description='Premium quality music bot for free! <3')
 setattr(nextwave.Player, 'lq', False)
 
-#s
 bot.remove_command('help')
 @bot.group(invoke_without_command=True)
 async def help(ctx, helpstr: Optional[str] = None):
-    user_commands = [play_command, error_test, pause_command, resume_command, skip_command, clear_command, reset_command]
+    user_commands = [play_command, pause_command, resume_command, skip_command, clear_command, reset_command]
     if helpstr is not None:
         for i in user_commands:
             if i.name == helpstr:
@@ -53,7 +51,6 @@ async def play_command(ctx: commands.Context, *, search:nextwave.YouTubeTrack):
         vc: nextwave.Player = await ctx.author.voice.channel.connect(cls=nextwave.Player)
     else:
         vc: nextwave.Player = ctx.voice_client
-
     if vc.queue.is_empty and vc.is_playing() is False:   
         playString = await ctx.send(embed=nextcord.Embed(description='**searching...**'))
         await vc.play(search)
@@ -61,10 +58,7 @@ async def play_command(ctx: commands.Context, *, search:nextwave.YouTubeTrack):
     else:
         await vc.queue.put_wait(search)
         await ctx.send(embed=nextcord.Embed(description=f'Added to the `QUEUE`\n\n`{search.title}`'))
-    vc.ctx = ctx  # [This is required for the on_nextwave_track_end event to work]
-
-#s
- 
+    vc.ctx = ctx  
 
 @commands.cooldown(1, 2, commands.BucketType.user)
 @bot.command(name='pause', aliases=['stop'], help='pauses current playing song', description='$pause')
@@ -87,7 +81,6 @@ async def resume_command(ctx: commands.Context):
     if await user_connectivity(ctx) == False:
         return
     vc: nextwave.Player = ctx.voice_client
-
     if vc.is_playing():
         if vc.is_paused():
             await vc.resume()
@@ -130,17 +123,32 @@ async def clear_command(ctx: commands.Context):
 async def reset_command(ctx):
     try:
         await ctx.send(embed=nextcord.Embed(description='Resetting Bot!'))
+        await node_connect()
     except Exception:
         await ctx.send(embed=nextcord.Embed(description='Failed to reset!'))
-          
+  
 @bot.event
 async def on_ready():
     print(f'logged in as: {bot.user.name}')
+    bot.loop.create_task(node_connect())
     await bot.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.streaming , name="Music | $help"))
 
 @bot.event
 async def on_nextwave_node_ready(node: nextwave.Node):
-    print(f'Node {node.identifier} connected successfully')     
+    print(f'Node {node.identifier} connected successfully')
+    
+async def node_connect():
+    await bot.wait_until_ready()
+    randomll = random.choice(lavalink)
+    await nextwave.NodePool.create_node(
+        bot=bot, 
+        host=randomll['host'], 
+        port=randomll['port'], 
+        password=randomll['password'], 
+        https=True
+        )    
+    await asyncio.sleep(24 * 60 * 59)  
+    await node_connect()      
     
 @bot.event
 async def on_nextwave_track_end(player: nextwave.Player, track: nextwave.Track, reason):
@@ -171,8 +179,6 @@ async def user_connectivity(ctx: commands.Context):
         return False
     return True
 
-# Auto-disconnect if all participants leave the voice channel
-#fixed in 2022.9.3
 @bot.event
 async def on_voice_state_update(member, before, after):
     if before.channel is not None:
@@ -184,7 +190,6 @@ async def on_voice_state_update(member, before, after):
                         break                  
                         
 if __name__ == '__main__':
-    bot.run(DISCORD_TOKEN)
-
+    bot.run(token)
 
 

@@ -30,6 +30,8 @@ $reset - Soft resets the bot.
 
 You can use the $help command to get more information about each command.
 
+the bot will reload 1 time per day cuz of connection with lavalink server. delete if u have ur own dorked.
+
 ## Contributing
 
 Contributions are welcome! If you find any issues or have suggestions, please open an issue or submit a pull request.
